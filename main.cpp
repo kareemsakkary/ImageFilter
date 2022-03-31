@@ -113,18 +113,18 @@ void loadImage(){
     strcat(upload_image,".bmp");
     readGSBMP(upload_image,image);
 }
-void BlackWhite(){}
-void Invert(){}
-void Merge(){}
-void FlipImage(){}
-void DarkenLighten(){}
-void Rotate(){}
-void DetectImageEdges(){}
-void EnlargeImage(){}
-void ShrinkImage(){}
-void MirrorHalf(){}
-void ShuffleImage(){}
-void BlurImage(){}
+void blackWhite(){}
+void invert(){}
+void merge(){}
+void flipImage(){}
+void darkenLighten(){}
+void rotate(){}
+void detectImageEdges(){}
+void enlargeImage(){}
+void shrinkImage(){}
+void mirrorHalf(){}
+void shuffleImage(){}
+void blurImage(){}
 void saveImage(){
     char imageName[100];
     cout << "Please enter the new image name you want to save as:";
