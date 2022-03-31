@@ -2,7 +2,7 @@
 // Program Name: ImageFilters.cpp
 // Last Modification Date: 31/3/2022
 // Kareem ElSakkary and 20210301 and Group:
-// Huda Samir and 20210 and Group:
+// Hoda Samir and 20210443 and Group:
 // Nada Mohammed and 20210422 and Group:
 // Teaching Assistant: Nesma
 // Purpose: create a program that take an image and add filters to it then save it
