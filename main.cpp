@@ -10,6 +10,8 @@
 #include <iostream>
 #include "bmplib.cpp"
 
+unsigned char image[256][256];
+
 char getOption();
 void loadImage();
 void blackWhite();
@@ -119,4 +121,10 @@ void ShrinkImage(){}
 void MirrorHalf(){}
 void ShuffleImage(){}
 void BlurImage(){}
-void Save(){}
+void saveImage(){
+    char imageName[100];
+    cout << "Please enter the new image name you want to save as:";
+    cin >> imageName;
+    strcat(imageName, ".bmp");
+    writeGSBMP(imageName, image);
+}
