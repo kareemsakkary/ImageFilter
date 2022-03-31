@@ -75,6 +75,7 @@ int main() {
 
                 break;
             case 's':
+                saveImage();
 
                 break;
             default:
