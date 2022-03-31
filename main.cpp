@@ -3,7 +3,7 @@
 // Last Modification Date: xx/xx/xxxx
 // Kareem Elsakkary  and 20210301 and Group: xxxxx xxxxx
 // Huda Samir and 20210 and Group: xxxxx xxxxx
-// Nada Mohamed and 20210 and Group: xxxxx xxxxx
+// Nada Mohamed and 20210422 and Group: xxxxx xxxxx
 // Teaching Assistant: Nesma
 // Purpose: create a program that take an image and add filters to it then save it
 
