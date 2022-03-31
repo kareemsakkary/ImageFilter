@@ -107,7 +107,12 @@ char getOption() {
           cin >> op;
     return op;
 }
-void loadImage(){}
+void loadImage(){
+    char upload_image[200];
+    cout<<"please enter the name of the image you want to upload: ";cin>>upload_image;
+    strcat(upload_image,".bmp");
+    readGSBMP(upload_image,image);
+}
 void BlackWhite(){}
 void Invert(){}
 void Merge(){}
