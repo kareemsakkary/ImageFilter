@@ -10,7 +10,6 @@
 #include <iostream>
 #include "bmplib.cpp"
 
-unsigned char image[256][256];
 
 char getOption();
 void loadImage();
@@ -28,7 +27,7 @@ void shuffleImage();
 void blurImage();
 void saveImage();
 
-int Image[255][255];
+unsigned char image[256][256];
 
 int main() {
     char op;
