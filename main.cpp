@@ -58,7 +58,7 @@ int main() {
 
                 break;
             case '7':
-
+                detectImageEdges();
                 break;
             case '8':
 
@@ -67,7 +67,7 @@ int main() {
 
                 break;
             case 'a':
-
+                mirrorHalf();
                 break;
             case 'b':
 
@@ -85,7 +85,6 @@ int main() {
                 break;
         }
         cout<<"done"<<endl;
-        system("pause");
     }
 
 
@@ -129,10 +128,11 @@ void blackWhite(){
         }
     }
     int avg = sum/(SIZE*SIZE);
+    cout << "avg: " << avg;
     for(int i =0;i<SIZE;i++){
         for(int j =0;j<SIZE;j++){
             if(image[i][j]>=avg){
-                image[i][j]=SIZE;
+                image[i][j]=255;
             } else{
                 image[i][j]=0;
             }
@@ -172,10 +172,65 @@ void flipImage(){
 }//done
 void darkenLighten(){}
 void rotate(){}
-void detectImageEdges(){}
+void detectImageEdges(){
+    blackWhite();
+    unsigned char newImage[SIZE][SIZE];;
+    for(int i =0;i<SIZE;i++){
+        for(int j =0;j<SIZE;j++){
+            if(image[i][j]==image[i+1][j]&&image[i][j]==image[i-1][j]&&image[i][j]==image[i][j+1]&&image[i][j-1]==image[i][j+1]){
+                newImage[i][j]=255;
+            }
+        }
+    }
+    for(int i =0;i<SIZE;i++){
+        for(int j =0;j<SIZE;j++) {
+            image[i][j]=newImage[i][j];
+        }
+    }
+}//done
 void enlargeImage(){}
 void shrinkImage(){}
-void mirrorHalf(){}
+void mirrorHalf(){
+    char half='n';
+    while (half!='l'&&half!='r'&&half!='u'&&half!='d'){
+        cout << "Mirror left(l), right(r), upper(u), down(d) side? ";
+        cin>>half;
+    }
+    switch (half) {
+        case 'l':
+            for(int i =0;i<SIZE;i++){
+                for(int j =0;j<SIZE/2;j++){
+                    image[i][SIZE-j-1]=image[i][j];
+                }
+            }
+            imageName+=" mirror (l)";
+            break;
+        case 'r':
+            for(int i =0;i<SIZE;i++){
+                for(int j =0;j<SIZE/2;j++){
+                    image[i][j]=image[i][SIZE-j-1];
+                }
+            }
+            imageName+=" mirror (r)";
+            break;
+        case 'd':
+            for(int i =0;i<SIZE/2;i++){
+                for(int j =0;j<SIZE;j++){
+                    image[255-i][j]=image[i][j];
+                }
+            }
+            imageName+=" mirror (d)";
+            break;
+        case 'u':
+            for(int i =0;i<SIZE/2;i++){
+                for(int j =0;j<SIZE;j++){
+                    image[i][j]=image[SIZE-i-1][j];
+                }
+            }
+            imageName+=" mirror (u)";
+            break;
+    }
+}//done
 void shuffleImage(){}
 void blurImage(){}
 void saveImage(){
