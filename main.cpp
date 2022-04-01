@@ -1,7 +1,7 @@
 // FCI – Programming 1 – 2022 - Assignment 3
 // Program Name: ImageFilters.cpp
 // Last Modification Date: xx/xx/xxxx
-// karim ElSakkary  and 20210301 and Group: xxxxx xxxxx
+// Kareem ElSakkary  and 20210301 and Group: xxxxx xxxxx
 // Huda Samir and 20210443 and Group: xxxxx xxxxx
 // Nada Mohamed and 20210422 and Group: xxxxx xxxxx
 // Teaching Assistant: Nesma
