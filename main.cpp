@@ -28,6 +28,7 @@ void blurImage();
 void saveImage();
 
 unsigned char image[256][256];
+unsigned char download[SIZE][SIZE];
 
 int main() {
     char op;
@@ -108,6 +109,7 @@ char getOption() {
           cin >> op;
     return op;
 }
+
 void loadImage(){
     char upload_image[200];
     cout<<"please enter the name of the image you want to upload: ";cin>>upload_image;
@@ -116,9 +118,48 @@ void loadImage(){
 }
 void BlackWhite(){}
 void Invert(){}
-void Merge(){}
+void Merge(){
+    unsigned char to_merge[SIZE][SIZE];
+    char upload_image2[200];
+    cout << "please enter the name of the image you want to merge:\n ";
+    cin >> upload_image2;
+    strcat(upload_image2, ".bmp");
+    readGSBMP(upload_image2, to_merge);
+    for (int i = 0; i <= SIZE; i++) {
+        for (int j = 0; j <= SIZE; j++) {
+            download[i][j] = (image[i][j] + to_merge[i][j]) / 2;
+            image[i][j] = download[i][j];
+        }}
+}
 void FlipImage(){}
-void DarkenLighten(){}
+
+// for Darken and Lighten Image
+void  filter6() {
+    unsigned char white[SIZE][SIZE];
+    unsigned char black[SIZE][SIZE];
+    char white_image[200] = "white";
+    strcat(white_image, ".bmp");
+    readGSBMP(white_image, white);
+    char black_image[200] = "black";
+    strcat(black_image, ".bmp");
+    readGSBMP(black_image, black);}
+void DarkenLighten(){
+    string action;
+    unsigned char white[SIZE][SIZE];
+    unsigned char black[SIZE][SIZE];
+    cout<<"Darken or lighten?"; cin>>action;
+    filter6();
+    if (action == "Darken"){
+        for(int i = 0;i<=SIZE;i++) {
+            for (int j = 0; j <= SIZE; j++) {
+                download[i][j]=(image[i][j]+black[i][j])/2;
+                image[i][j] = download[i][j];
+            }}}else if (action == "lighten"){
+        for(int i = 0;i<=SIZE;i++){
+            for(int j = 0; j<=SIZE;j++){
+                download[i][j]=(image[i][j]+white[i][j])/2;
+                image[i][j] = download[i][j];
+            }}}}
 void Rotate(){}
 void DetectImageEdges(){}
 void EnlargeImage(){}
