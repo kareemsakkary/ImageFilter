@@ -10,8 +10,9 @@
 #include <iostream>
 #include "bmplib.cpp"
 
-
+void printImage();
 char getOption();
+
 void loadImage();
 void blackWhite();
 void invertImage();
@@ -39,7 +40,7 @@ int main() {
         }
         switch (op) {
             case '1':
-
+                blackWhite();
                 break;
             case '2':
 
@@ -86,7 +87,14 @@ int main() {
     return 0;
 }
 
-
+void printImage(){
+    for(int i =0;i<SIZE;i++){
+        for(int j =0;j<SIZE;j++){
+            cout << image[i][j];
+        }
+        cout<<endl;
+    }
+}
 char getOption() {
     char op;
     cout <<"Please select a filter to apply or 0 to exit:\n"
@@ -114,7 +122,9 @@ void loadImage(){
     strcat(upload_image,".bmp");
     readGSBMP(upload_image,image);
 }
-void blackWhite(){}
+void blackWhite(){
+    printImage();
+}
 void invert(){}
 void merge(){}
 void flipImage(){}
