@@ -29,6 +29,7 @@ void blurImage();
 void saveImage();
 
 unsigned char image[256][256];
+unsigned char download[SIZE][SIZE];
 string imageName;
 int main() {
     char op;
@@ -141,7 +142,19 @@ void blackWhite(){
     imageName+=" B&W";
 }//done
 void invert(){}
-void merge(){}
+void merge(){
+    unsigned char to_merge[SIZE][SIZE];
+    char upload_image2[200];
+    cout << "please enter the name of the image you want to upload:\n ";
+    cin >> upload_image2;
+    strcat(upload_image2, ".bmp");
+    readGSBMP(upload_image2, to_merge);
+    for (int i = 0; i <= SIZE; i++) {
+        for (int j = 0; j <= SIZE; j++) {
+            download[i][j] = (image[i][j] + to_merge[i][j]) / 2;
+            image[i][j] = download[i][j];
+        }}
+}
 void flipImage(){
     char dir='n';
     while (dir!='h'&&dir!='v'){
@@ -170,7 +183,37 @@ void flipImage(){
         imageName+=" flip (v)";
     }
 }//done
-void darkenLighten(){}
+// for Darken&lighten filter
+void  filter6() {
+    unsigned char white[SIZE][SIZE];
+    unsigned char black[SIZE][SIZE];
+    char white_image[200] = "white";
+    strcat(white_image, ".bmp");
+    readGSBMP(white_image, white);
+    char black_image[200] = "black";
+    strcat(black_image, ".bmp");
+    readGSBMP(black_image, black);
+}
+void darkenLighten(){
+    string action;
+    unsigned char white[SIZE][SIZE];
+    unsigned char black[SIZE][SIZE];
+    cout<<"Darken or lighten?"; cin>>action;
+    filter6();
+    if (action == "Darken"){
+        for(int i = 0;i<=SIZE;i++) {
+            for (int j = 0; j <= SIZE; j++) {
+                download[i][j]=(image[i][j]+black[i][j])/2;
+                image[i][j] = download[i][j];
+
+            }}
+    }else if (action == "lighten"){
+        for(int i = 0;i<=SIZE;i++){
+            for(int j = 0; j<=SIZE;j++){
+                download[i][j]=(image[i][j]+white[i][j])/2;
+                image[i][j] = download[i][j];
+            }}}
+}
 void rotate(){}
 void detectImageEdges(){
     blackWhite();
