@@ -29,11 +29,11 @@ void blurImage();
 void saveImage();
 
 unsigned char image[256][256];
-
+string imageName;
 int main() {
     char op;
+    loadImage();
     while(true){
-        loadImage();
         op = getOption();
         if(op=='0'){
             break;
@@ -77,40 +77,38 @@ int main() {
                 break;
             case 's':
                 saveImage();
-
+                break;
+            case 'w':
+                loadImage();
                 break;
             default:
                 break;
         }
+        cout<<"done"<<endl;
+        system("pause");
     }
+
 
     return 0;
 }
 
-void printImage(){
-    for(int i =0;i<SIZE;i++){
-        for(int j =0;j<SIZE;j++){
-            cout << image[i][j];
-        }
-        cout<<endl;
-    }
-}
 char getOption() {
     char op;
-    cout <<"Please select a filter to apply or 0 to exit:\n"
-          "1- Black & White Filter\n"
+    cout <<"Please select a filter to apply on "<<imageName<<" or 0 to exit:\n"
+          "1- Black & White Filter    \t"
           "2- Invert Filter\n"
-          "3- Merge Filter \n"
+          "3- Merge Filter            \t"
           "4- Flip Image\n"
-          "5- Darken and Lighten Image \n"
+          "5- Darken and Lighten Image\t"
           "6- Rotate Image\n"
-          "7- Detect Image Edges \n"
+          "7- Detect Image Edges      \t"
           "8- Enlarge Image\n"
-          "9- Shrink Image\n"
+          "9- Shrink Image            \t"
           "a- Mirror 1/2 Image\n"
-          "b- Shuffle Image\n"
+          "b- Shuffle Image           \t"
           "c- Blur Image\n"
-          "s- Save the image to a file\n"
+          "s- Save the image to a file\t"
+          "w- Change the image\n"
           "0- Exit\n"
           "-->";
           cin >> op;
@@ -121,10 +119,27 @@ void loadImage(){
     cout<<"please enter the name of the image you want to upload: ";cin>>upload_image;
     strcat(upload_image,".bmp");
     readGSBMP(upload_image,image);
+    imageName=upload_image;
 }
 void blackWhite(){
-    printImage();
-}
+    int sum = 0;
+    for(int i =0;i<SIZE;i++){
+        for(int j =0;j<SIZE;j++){
+            sum+=(int) image[i][j];
+        }
+    }
+    int avg = sum/(255*255);
+    for(int i =0;i<SIZE;i++){
+        for(int j =0;j<SIZE;j++){
+            if(image[i][j]>=avg){
+                image[i][j]=255;
+            } else{
+                image[i][j]=0;
+            }
+        }
+    }
+    imageName+=" B&W";
+}//done
 void invert(){}
 void merge(){}
 void flipImage(){}
