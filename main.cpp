@@ -49,7 +49,7 @@ int main() {
 
                 break;
             case '4':
-
+                flipImage();
                 break;
             case '5':
 
@@ -128,11 +128,11 @@ void blackWhite(){
             sum+=(int) image[i][j];
         }
     }
-    int avg = sum/(255*255);
+    int avg = sum/(SIZE*SIZE);
     for(int i =0;i<SIZE;i++){
         for(int j =0;j<SIZE;j++){
             if(image[i][j]>=avg){
-                image[i][j]=255;
+                image[i][j]=SIZE;
             } else{
                 image[i][j]=0;
             }
@@ -142,7 +142,34 @@ void blackWhite(){
 }//done
 void invert(){}
 void merge(){}
-void flipImage(){}
+void flipImage(){
+    char dir='n';
+    while (dir!='h'&&dir!='v'){
+        cout << "Flip horizontally(h) or vertically(v)";
+        cin>>dir;
+    }
+    if(dir == 'h'){
+        unsigned char temp;
+        for(int i =0;i<SIZE/2;i++){
+            for(int j =0;j<SIZE;j++){
+                temp = image[i][j];
+                image[i][j]=image[SIZE-i-1][SIZE-j-1];
+                image[SIZE-i-1][SIZE-j-1]=temp;
+            }
+        }
+        imageName+=" flip (h)";
+    }else{
+        unsigned char temp;
+        for(int i =0;i<SIZE;i++){
+            for(int j =0;j<SIZE/2;j++){
+                temp = image[i][j];
+                image[i][j]=image[i][SIZE-j-1];
+                image[i][SIZE-j-1]=temp;
+            }
+        }
+        imageName+=" flip (v)";
+    }
+}//done
 void darkenLighten(){}
 void rotate(){}
 void detectImageEdges(){}
