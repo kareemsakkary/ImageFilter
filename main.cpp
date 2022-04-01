@@ -44,7 +44,7 @@ int main() {
                 blackWhite();
                 break;
             case '2':
-
+                mergeImage();
                 break;
             case '3':
 
@@ -53,7 +53,7 @@ int main() {
                 flipImage();
                 break;
             case '5':
-
+                darkenLightenImage();
                 break;
             case '6':
 
@@ -114,6 +114,7 @@ char getOption() {
           cin >> op;
     return op;
 }
+
 void loadImage(){
     char upload_image[200];
     cout<<"please enter the name of the image you want to upload: ";cin>>upload_image;
@@ -141,8 +142,8 @@ void blackWhite(){
     }
     imageName+=" B&W";
 }//done
-void invert(){}
-void merge(){
+void invertImage(){}
+void mergeImage(){
     unsigned char to_merge[SIZE][SIZE];
     char upload_image2[200];
     cout << "please enter the name of the image you want to upload:\n ";
@@ -194,7 +195,7 @@ void  filter6() {
     strcat(black_image, ".bmp");
     readGSBMP(black_image, black);
 }
-void darkenLighten(){
+void darkenLightenImage(){
     string action;
     unsigned char white[SIZE][SIZE];
     unsigned char black[SIZE][SIZE];
@@ -214,7 +215,7 @@ void darkenLighten(){
                 image[i][j] = download[i][j];
             }}}
 }
-void rotate(){}
+void rotateImage(){}
 void detectImageEdges(){
     blackWhite();
     unsigned char newImage[SIZE][SIZE];;
