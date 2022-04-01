@@ -1,11 +1,3 @@
 # ninja log v5
-2	454	6704539008446734	CMakeFiles/ImageFilters.dir/main.cpp.obj	9560d3a8a31513f0
-454	668	6704539010552516	ImageFilters.exe	fdd82bf87445ef89
-2	469	6704544141532652	CMakeFiles/ImageFilters.dir/main.cpp.obj	9560d3a8a31513f0
-469	673	6704544143544410	ImageFilters.exe	fdd82bf87445ef89
-10	1130	6704739281592789	CMakeFiles/ImageFilters.dir/main.cpp.obj	9560d3a8a31513f0
-1130	1484	6704739285105297	ImageFilters.exe	fdd82bf87445ef89
-3	409	6704742845404776	CMakeFiles/ImageFilters.dir/main.cpp.obj	9560d3a8a31513f0
-410	604	6704742847286490	ImageFilters.exe	fdd82bf87445ef89
 3	289	6704745722659493	CMakeFiles/ImageFilters.dir/main.cpp.obj	9560d3a8a31513f0
 292	407	6704745723753310	ImageFilters.exe	fdd82bf87445ef89
