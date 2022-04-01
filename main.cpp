@@ -276,7 +276,25 @@ void mirrorHalf(){
     }
 }//done
 void shuffleImage(){}
-void blurImage(){}
+void blurImage(){
+    for(int i = 0;i<=SIZE;i= i=i+2){
+        for(int j = 0; j<=SIZE;j=j+2) {
+            char value = (image[i+1][j]+image[i][j+1]+image[i+1][j+1]+image[i][j+2]+ image[i+2][j]+image[i][j+3]+image[i+3][j]+ image[i+3][j+3]+image[i][j+4]+image[i+4][j]+image[i+4][j+4])/12;
+            image[i+1][j] = value;
+            image[i][j+1] = value;
+            image[i+1][j+1] = value;
+            image[i][j+2] = value;
+            image[i+2][j] = value;
+            image[i][j+3] = value;
+            image[i+3][j] = value;
+            image[i+3][j+3] = value;
+            image[i][j+4]= value;
+            image[i+4][j]= value;
+            image[i+4][j+4] = value;
+            image[i][j] = download[i][j];
+
+        }}
+}
 void saveImage(){
     char imageNameNew[100];
     cout << "Please enter the new image name you want to save as:";
