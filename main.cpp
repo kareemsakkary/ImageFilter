@@ -1,7 +1,7 @@
 // FCI – Programming 1 – 2022 - Assignment 3
 // Program Name: ImageFilters.cpp
 // Last Modification Date: xx/xx/xxxx
-// karim ElSakkary  and 20210301 and Group: xxxxx xxxxx
+// Kareem ElSakkary  and 20210301 and Group: xxxxx xxxxx
 // Huda Samir and 20210443 and Group: xxxxx xxxxx
 // Nada Mohamed and 20210422 and Group: xxxxx xxxxx
 // Teaching Assistant: Nesma
@@ -10,8 +10,9 @@
 #include <iostream>
 #include "bmplib.cpp"
 
-
+void printImage();
 char getOption();
+
 void loadImage();
 void blackWhite();
 void invertImage();
@@ -28,19 +29,18 @@ void blurImage();
 void saveImage();
 
 unsigned char image[256][256];
-unsigned char download[SIZE][SIZE];
-
+string imageName;
 int main() {
     char op;
+    loadImage();
     while(true){
-        loadImage();
         op = getOption();
         if(op=='0'){
             break;
         }
         switch (op) {
             case '1':
-
+                blackWhite();
                 break;
             case '2':
 
@@ -49,7 +49,7 @@ int main() {
 
                 break;
             case '4':
-
+                flipImage();
                 break;
             case '5':
 
@@ -58,7 +58,7 @@ int main() {
 
                 break;
             case '7':
-
+                detectImageEdges();
                 break;
             case '8':
 
@@ -67,7 +67,7 @@ int main() {
 
                 break;
             case 'a':
-
+                mirrorHalf();
                 break;
             case 'b':
 
@@ -77,100 +77,166 @@ int main() {
                 break;
             case 's':
                 saveImage();
-
+                break;
+            case 'w':
+                loadImage();
                 break;
             default:
                 break;
         }
+        cout<<"done"<<endl;
     }
+
 
     return 0;
 }
 
-
 char getOption() {
     char op;
-    cout <<"Please select a filter to apply or 0 to exit:\n"
-          "1- Black & White Filter\n"
+    cout <<"Please select a filter to apply on "<<imageName<<" or 0 to exit:\n"
+          "1- Black & White Filter    \t"
           "2- Invert Filter\n"
-          "3- Merge Filter \n"
+          "3- Merge Filter            \t"
           "4- Flip Image\n"
-          "5- Darken and Lighten Image \n"
+          "5- Darken and Lighten Image\t"
           "6- Rotate Image\n"
-          "7- Detect Image Edges \n"
+          "7- Detect Image Edges      \t"
           "8- Enlarge Image\n"
-          "9- Shrink Image\n"
+          "9- Shrink Image            \t"
           "a- Mirror 1/2 Image\n"
-          "b- Shuffle Image\n"
+          "b- Shuffle Image           \t"
           "c- Blur Image\n"
-          "s- Save the image to a file\n"
+          "s- Save the image to a file\t"
+          "w- Change the image\n"
           "0- Exit\n"
           "-->";
           cin >> op;
     return op;
 }
-
 void loadImage(){
     char upload_image[200];
     cout<<"please enter the name of the image you want to upload: ";cin>>upload_image;
     strcat(upload_image,".bmp");
     readGSBMP(upload_image,image);
+    imageName=upload_image;
 }
-void BlackWhite(){}
-void Invert(){}
-void Merge(){
-    unsigned char to_merge[SIZE][SIZE];
-    char upload_image2[200];
-    cout << "please enter the name of the image you want to merge:\n ";
-    cin >> upload_image2;
-    strcat(upload_image2, ".bmp");
-    readGSBMP(upload_image2, to_merge);
-    for (int i = 0; i <= SIZE; i++) {
-        for (int j = 0; j <= SIZE; j++) {
-            download[i][j] = (image[i][j] + to_merge[i][j]) / 2;
-            image[i][j] = download[i][j];
-        }}
-}
-void FlipImage(){}
-
-// for Darken and Lighten Image
-void  filter6() {
-    unsigned char white[SIZE][SIZE];
-    unsigned char black[SIZE][SIZE];
-    char white_image[200] = "white";
-    strcat(white_image, ".bmp");
-    readGSBMP(white_image, white);
-    char black_image[200] = "black";
-    strcat(black_image, ".bmp");
-    readGSBMP(black_image, black);}
-void DarkenLighten(){
-    string action;
-    unsigned char white[SIZE][SIZE];
-    unsigned char black[SIZE][SIZE];
-    cout<<"Darken or lighten?"; cin>>action;
-    filter6();
-    if (action == "Darken"){
-        for(int i = 0;i<=SIZE;i++) {
-            for (int j = 0; j <= SIZE; j++) {
-                download[i][j]=(image[i][j]+black[i][j])/2;
-                image[i][j] = download[i][j];
-            }}}else if (action == "lighten"){
-        for(int i = 0;i<=SIZE;i++){
-            for(int j = 0; j<=SIZE;j++){
-                download[i][j]=(image[i][j]+white[i][j])/2;
-                image[i][j] = download[i][j];
-            }}}}
-void Rotate(){}
-void DetectImageEdges(){}
-void EnlargeImage(){}
-void ShrinkImage(){}
-void MirrorHalf(){}
-void ShuffleImage(){}
-void BlurImage(){}
+void blackWhite(){
+    int sum = 0;
+    for(int i =0;i<SIZE;i++){
+        for(int j =0;j<SIZE;j++){
+            sum+=(int) image[i][j];
+        }
+    }
+    int avg = sum/(SIZE*SIZE);
+    cout << "avg: " << avg;
+    for(int i =0;i<SIZE;i++){
+        for(int j =0;j<SIZE;j++){
+            if(image[i][j]>=avg){
+                image[i][j]=255;
+            } else{
+                image[i][j]=0;
+            }
+        }
+    }
+    imageName+=" B&W";
+}//done
+void invert(){}
+void merge(){}
+void flipImage(){
+    char dir='n';
+    while (dir!='h'&&dir!='v'){
+        cout << "Flip horizontally(h) or vertically(v)";
+        cin>>dir;
+    }
+    if(dir == 'h'){
+        unsigned char temp;
+        for(int i =0;i<SIZE/2;i++){
+            for(int j =0;j<SIZE;j++){
+                temp = image[i][j];
+                image[i][j]=image[SIZE-i-1][SIZE-j-1];
+                image[SIZE-i-1][SIZE-j-1]=temp;
+            }
+        }
+        imageName+=" flip (h)";
+    }else{
+        unsigned char temp;
+        for(int i =0;i<SIZE;i++){
+            for(int j =0;j<SIZE/2;j++){
+                temp = image[i][j];
+                image[i][j]=image[i][SIZE-j-1];
+                image[i][SIZE-j-1]=temp;
+            }
+        }
+        imageName+=" flip (v)";
+    }
+}//done
+void darkenLighten(){}
+void rotate(){}
+void detectImageEdges(){
+    blackWhite();
+    unsigned char newImage[SIZE][SIZE];;
+    for(int i =0;i<SIZE;i++){
+        for(int j =0;j<SIZE;j++){
+            if(image[i][j]==image[i+1][j]&&image[i][j]==image[i-1][j]&&image[i][j]==image[i][j+1]&&image[i][j-1]==image[i][j+1]){
+                newImage[i][j]=255;
+            }
+        }
+    }
+    for(int i =0;i<SIZE;i++){
+        for(int j =0;j<SIZE;j++) {
+            image[i][j]=newImage[i][j];
+        }
+    }
+}//done
+void enlargeImage(){}
+void shrinkImage(){}
+void mirrorHalf(){
+    char half='n';
+    while (half!='l'&&half!='r'&&half!='u'&&half!='d'){
+        cout << "Mirror left(l), right(r), upper(u), down(d) side? ";
+        cin>>half;
+    }
+    switch (half) {
+        case 'l':
+            for(int i =0;i<SIZE;i++){
+                for(int j =0;j<SIZE/2;j++){
+                    image[i][SIZE-j-1]=image[i][j];
+                }
+            }
+            imageName+=" mirror (l)";
+            break;
+        case 'r':
+            for(int i =0;i<SIZE;i++){
+                for(int j =0;j<SIZE/2;j++){
+                    image[i][j]=image[i][SIZE-j-1];
+                }
+            }
+            imageName+=" mirror (r)";
+            break;
+        case 'd':
+            for(int i =0;i<SIZE/2;i++){
+                for(int j =0;j<SIZE;j++){
+                    image[255-i][j]=image[i][j];
+                }
+            }
+            imageName+=" mirror (d)";
+            break;
+        case 'u':
+            for(int i =0;i<SIZE/2;i++){
+                for(int j =0;j<SIZE;j++){
+                    image[i][j]=image[SIZE-i-1][j];
+                }
+            }
+            imageName+=" mirror (u)";
+            break;
+    }
+}//done
+void shuffleImage(){}
+void blurImage(){}
 void saveImage(){
-    char imageName[100];
+    char imageNameNew[100];
     cout << "Please enter the new image name you want to save as:";
-    cin >> imageName;
-    strcat(imageName, ".bmp");
-    writeGSBMP(imageName, image);
+    cin >> imageNameNew;
+    strcat(imageNameNew, ".bmp");
+    writeGSBMP(imageNameNew, image);
 }
