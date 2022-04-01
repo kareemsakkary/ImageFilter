@@ -179,9 +179,9 @@ void mirrorHalf(){}
 void shuffleImage(){}
 void blurImage(){}
 void saveImage(){
-    char imageName[100];
+    char imageNameNew[100];
     cout << "Please enter the new image name you want to save as:";
-    cin >> imageName;
-    strcat(imageName, ".bmp");
-    writeGSBMP(imageName, image);
+    cin >> imageNameNew;
+    strcat(imageNameNew, ".bmp");
+    writeGSBMP(imageNameNew, image);
 }
