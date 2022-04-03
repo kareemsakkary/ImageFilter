@@ -44,7 +44,7 @@ int main() {
                 blackWhite();
                 break;
             case '2':
-
+                mergeImage();
                 break;
             case '3':
 
@@ -53,7 +53,7 @@ int main() {
                 flipImage();
                 break;
             case '5':
-
+                darkenLightenImage();
                 break;
             case '6':
 
@@ -114,6 +114,7 @@ char getOption() {
           cin >> op;
     return op;
 }
+
 void loadImage(){
     char upload_image[200];
     cout<<"please enter the name of the image you want to upload: ";cin>>upload_image;
@@ -141,8 +142,8 @@ void blackWhite(){
     }
     imageName+=" B&W";
 }//done
-void invert(){}
-void merge(){
+void invertImage(){}
+void mergeImage(){
     unsigned char to_merge[SIZE][SIZE];
     char upload_image2[200];
     cout << "please enter the name of the image you want to upload:\n ";
@@ -194,7 +195,7 @@ void  filter6() {
     strcat(black_image, ".bmp");
     readGSBMP(black_image, black);
 }
-void darkenLighten(){
+void darkenLightenImage(){
     string action;
     unsigned char white[SIZE][SIZE];
     unsigned char black[SIZE][SIZE];
@@ -214,7 +215,7 @@ void darkenLighten(){
                 image[i][j] = download[i][j];
             }}}
 }
-void rotate(){}
+void rotateImage(){}
 void detectImageEdges(){
     blackWhite();
     unsigned char newImage[SIZE][SIZE];;
@@ -275,7 +276,25 @@ void mirrorHalf(){
     }
 }//done
 void shuffleImage(){}
-void blurImage(){}
+void blurImage(){
+    for(int i = 0;i<=SIZE;i= i=i+2){
+        for(int j = 0; j<=SIZE;j=j+2) {
+            char value = (image[i+1][j]+image[i][j+1]+image[i+1][j+1]+image[i][j+2]+ image[i+2][j]+image[i][j+3]+image[i+3][j]+ image[i+3][j+3]+image[i][j+4]+image[i+4][j]+image[i+4][j+4])/12;
+            image[i+1][j] = value;
+            image[i][j+1] = value;
+            image[i+1][j+1] = value;
+            image[i][j+2] = value;
+            image[i+2][j] = value;
+            image[i][j+3] = value;
+            image[i+3][j] = value;
+            image[i+3][j+3] = value;
+            image[i][j+4]= value;
+            image[i+4][j]= value;
+            image[i+4][j+4] = value;
+            image[i][j] = download[i][j];
+
+        }}
+}
 void saveImage(){
     char imageNameNew[100];
     cout << "Please enter the new image name you want to save as:";
