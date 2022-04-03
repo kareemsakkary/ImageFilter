@@ -317,8 +317,8 @@ void mirrorHalf(){
 void shuffleImage(){}
 void blurImage(){
   int value;
-        for (int i=0 ; i<SIZE ; i+=2){
-            for (int j=0 ; j<SIZE ; j+=2){
+        for (int i=0 ; i<253 ; i+=2){
+            for (int j=0 ; j<253 ; j+=2){
                 value =((image[i][j]+image[i+1][j]+image[i][j+1]+image[i+1][j+1]+image[i][j+2]+image[i+2][j]+image[i+2][i+2]+image[i+1][j+2]+image[i+2][j+1]+image[i+3][j]+image[i][j+3]+image[i+3][j+3]+image[i+2][j+3]+image[i+3][j+2])/14);
                 image[i][j]=value;
                 image[i+1][j]=value;
