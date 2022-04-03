@@ -240,10 +240,7 @@ void rotateImage(){
     cout << "Which degree do you want to rotate by ? (90 - 180 - 270)" << endl;
     cin >> degree;
     if (degree == 90) {
-        while (c < 1) {
-            rotate();
-            c++;
-        }
+        rotate();
     }
     if (degree == 180) {
         while (c < 2) {
