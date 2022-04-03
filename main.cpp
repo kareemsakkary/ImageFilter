@@ -44,19 +44,19 @@ int main() {
                 blackWhite();
                 break;
             case '2':
-                mergeImage();
+                invertImage();
                 break;
             case '3':
-
+                mergeImage();
                 break;
             case '4':
                 flipImage();
                 break;
             case '5':
-                darkenLightenImage();
+                rotateImage();
                 break;
             case '6':
-
+                darkenLightenImage();
                 break;
             case '7':
                 detectImageEdges();
@@ -85,6 +85,7 @@ int main() {
             default:
                 break;
         }
+        saveImage();
         cout<<"done"<<endl;
     }
 
@@ -99,8 +100,8 @@ char getOption() {
           "2- Invert Filter\n"
           "3- Merge Filter            \t"
           "4- Flip Image\n"
-          "5- Darken and Lighten Image\t"
-          "6- Rotate Image\n"
+          "5- Rotate Image             \t"
+          "6- Darken and Lighten Image\n"
           "7- Detect Image Edges      \t"
           "8- Enlarge Image\n"
           "9- Shrink Image            \t"
@@ -142,7 +143,13 @@ void blackWhite(){
     }
     imageName+=" B&W";
 }//done
-void invertImage(){}
+void invertImage(){
+    for (int i=0; i<256;i++){
+        for (int j=0;j<256;j++){
+            image[i][j] = 255 - image[i][j];
+        }
+    }
+}
 void mergeImage(){
     unsigned char to_merge[SIZE][SIZE];
     char upload_image2[200];
@@ -215,7 +222,42 @@ void darkenLightenImage(){
                 image[i][j] = download[i][j];
             }}}
 }
-void rotateImage(){}
+void rotate() {
+    unsigned char tempMat[256][256];
+    for (int i = 0; i < 256; i++) {
+        for (int j = 0; j < 256; j++) {
+            tempMat[j][256 - i] = image[i][j];
+        }
+    }
+    for (int i = 0; i < 256; i++) {
+        for (int j = 0; j < 256; j++) {
+            image[i][j] = tempMat[i][j];
+        }
+    }
+}
+void rotateImage(){
+    int degree, c{0};
+    cout << "Which degree do you want to rotate by ? (90 - 180 - 270)" << endl;
+    cin >> degree;
+    if (degree == 90) {
+        while (c < 1) {
+            rotate();
+            c++;
+        }
+    }
+    if (degree == 180) {
+        while (c < 2) {
+            rotate();
+            c++;
+        }
+    }
+    if (degree == 270) {
+        while (c < 3) {
+            rotate();
+            c++;
+        }
+    }
+}
 void detectImageEdges(){
     blackWhite();
     unsigned char newImage[SIZE][SIZE];;
