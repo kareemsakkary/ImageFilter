@@ -271,7 +271,46 @@ void detectImageEdges(){
         }
     }
 }//done
-void enlargeImage(){}
+void enlargeImage(){
+    cout << "Please enter the number of the quarter you want to enlarge: " << endl;
+    int nQuarter, startX, startY, countX = 0, countY = 0; ;
+    cin >> nQuarter;
+    while (nQuarter < 0 || nQuarter > 4){
+        cout << "Invalid! Please enter a number from [1, 2, 3, 4]" << endl;
+        cin >> nQuarter;
+    } // set the starting point depending on which quarter the user will choose
+    if (nQuarter == 1)
+        startX = startY = 0;
+    if (nQuarter == 2){
+        startX = 0;
+        startY = 128;
+    }
+    if (nQuarter == 3){
+        startX = 128;
+        startY = 0;
+    }
+    if (nQuarter == 4)
+        startX = startY = 128;
+    unsigned char enlargedImage[256][256], tmp;
+    for (int x = startX; x < startX + 128; x++){
+        for (int y = startY; y < startY + 128; y++){
+            tmp = image[x][y];
+            for (int i = countX; i < countX + 2; i++){ // enlarge the quarter image by duplicating each pixel 4 times
+                for (int j = countY; j < countY + 2; j++){
+                    enlargedImage[i][j] = tmp;
+                }
+            }
+            countY += 2;
+        }
+        countY = 0;
+        countX += 2;
+    }
+    for (int i = 0; i < 256; i++) {
+        for (int j = 0; j < 256; j++) {
+            image[i][j] = enlargedImage[i][j];
+        }
+    }
+}
 void shrinkImage(){
  cout << "please enter the value you want to shrink with from the list[1/2,1/3,1/4]\n";
     string shrink_value;
