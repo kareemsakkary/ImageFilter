@@ -71,7 +71,7 @@ int main() {
                 mirrorHalf();
                 break;
             case 'b':
-
+                shuffleImage();
                 break;
             case 'c':
 
@@ -314,7 +314,85 @@ void mirrorHalf(){
             break;
     }
 }//done
-void shuffleImage(){}
+void shuffleImage(){
+    string order;
+    cout << "Please enter the order you want to the quarters in the new image: " << endl;
+    cin.ignore();
+    getline(cin, order);
+    unsigned char tempMatrix[256][256];
+    int q{1};
+    for (char k: order) {
+        if(k == ' '){
+            continue;
+        }
+        for (int i = 0; i < 256 / 2; i++) {
+            for (int j = 0; j < 256 / 2; j++) {
+                if (q == 1) {  // first quarter
+                    if (k == '1') {
+                        tempMatrix[i][j] = image[i][j];
+                    }
+                    if (k == '2') {
+                        tempMatrix[i][j] = image[i][j+128];
+                    }
+                    if (k == '3') {
+                        tempMatrix[i][j] = image[i+128][j];
+                    }
+                    if (k == '4') {
+                        tempMatrix[i][j] = image[i+128][j+128];
+                    }
+                }
+                if (q == 2) {  // second quarter
+                    if (k == '1') {
+                        tempMatrix[i][j + 128] = image[i][j];
+                    }
+                    if (k == '2') {
+                        tempMatrix[i][j + 128] = image[i][j + 128];
+                    }
+                    if (k == '3') {
+                        tempMatrix[i][j + 128] = image[i+128][j];
+                    }
+                    if (k == '4') {
+                        tempMatrix[i][j + 128] = image[i+128][j+128];
+                    }
+                }
+                if (q == 3) {  // third quarter
+                    if (k == '1') {
+                        tempMatrix[i + 128][j] = image[i][j];
+                    }
+                    if (k == '2') {
+                        tempMatrix[i + 128][j] = image[i][j + 128];
+                    }
+                    if (k == '3') {
+                        tempMatrix[i + 128][j] = image[i + 128][j];
+                    }
+                    if (k == '4') {
+                        tempMatrix[i + 128][j] = image[i + 128][j + 128];
+                    }
+                }
+                if (q == 4) {  // fourth quarter
+                    if (k == '1') {
+                        tempMatrix[i + 128][j + 128] = image[i][j];
+                    }
+                    if (k == '2') {
+                        tempMatrix[i + 128][j + 128] = image[i][j + 128];
+                    }
+                    if (k == '3') {
+                        tempMatrix[i + 128][j + 128] = image[i + 128][j];
+                    }
+                    if (k == '4') {
+                        tempMatrix[i + 128][j + 128] = image[i + 128][j + 128];
+                    }
+                }
+            }
+        }
+        q++;
+    }
+    for (int i = 0; i < 256; i++) {
+        for (int j = 0; j < 256; j++) {
+            image[i][j] = tempMatrix[i][j];
+        }
+    }
+}
 void blurImage(){
   int value;
         for (int i=0 ; i<253 ; i+=2){
