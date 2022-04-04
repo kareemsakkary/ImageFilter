@@ -85,8 +85,7 @@ int main() {
             default:
                 break;
         }
-        saveImage();
-        cout<<"done"<<endl;
+//        saveImage();
     }
 
 
@@ -131,7 +130,6 @@ void blackWhite(){
         }
     }
     int avg = sum/(SIZE*SIZE);
-    cout << "avg: " << avg;
     for(int i =0;i<SIZE;i++){
         for(int j =0;j<SIZE;j++){
             if(image[i][j]>=avg){
@@ -525,7 +523,7 @@ void blurImage(){
                 image[i+3][j+2]=value;
 
             }}
-    imageName+= "blur";
+    imageName+= " blur";
 
 }
 void saveImage(){
