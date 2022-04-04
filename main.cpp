@@ -62,10 +62,10 @@ int main() {
                 detectImageEdges();
                 break;
             case '8':
-
+                enlargeImage();
                 break;
             case '9':
-
+                 shrinkImage();
                 break;
             case 'a':
                 mirrorHalf();
@@ -74,7 +74,7 @@ int main() {
                 shuffleImage();
                 break;
             case 'c':
-
+                blurImage();
                 break;
             case 's':
                 saveImage();
@@ -118,7 +118,7 @@ char getOption() {
 
 void loadImage(){
     char upload_image[200];
-    cout<<"please enter the name of the image you want to upload: ";cin>>upload_image;
+    cout<<"please enter the name of the image you want to upload: \n";cin>>upload_image;
     strcat(upload_image,".bmp");
     readGSBMP(upload_image,image);
     imageName=upload_image;
