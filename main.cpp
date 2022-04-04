@@ -149,6 +149,7 @@ void invertImage(){
             image[i][j] = 255 - image[i][j];
         }
     }
+    imageName+=" invert";
 }
 void mergeImage(){
     unsigned char to_merge[SIZE][SIZE];
@@ -162,6 +163,7 @@ void mergeImage(){
             download[i][j] = (image[i][j] + to_merge[i][j]) / 2;
             image[i][j] = download[i][j];
         }}
+    imageName+= strcat(" merged with ",upload_image2);
 }
 void flipImage(){
     char dir='n';
@@ -215,13 +217,18 @@ void darkenLightenImage(){
                 image[i][j] = download[i][j];
 
             }}
+        imageName+= " darken";
     }else if (action == "lighten"){
         for(int i = 0;i<=SIZE;i++){
             for(int j = 0; j<=SIZE;j++){
                 download[i][j]=(image[i][j]+white[i][j])/2;
                 image[i][j] = download[i][j];
-            }}}
+            }
+        }
+        imageName+= " lighten";
+    }
 }
+// for rotateImage
 void rotate() {
     unsigned char tempMat[256][256];
     for (int i = 0; i < 256; i++) {
@@ -254,6 +261,7 @@ void rotateImage(){
             c++;
         }
     }
+    imageName+= " rotate "+to_string(degree)+" degree";
 }
 void detectImageEdges(){
     blackWhite();
@@ -270,6 +278,7 @@ void detectImageEdges(){
             image[i][j]=newImage[i][j];
         }
     }
+    imageName+= "`s objects edges";
 }//done
 void enlargeImage(){
     cout << "Please enter the number of the quarter you want to enlarge: " << endl;
@@ -310,6 +319,8 @@ void enlargeImage(){
             image[i][j] = enlargedImage[i][j];
         }
     }
+    imageName+= " enlarge "+to_string(nQuarter)+"th quarter";
+
 }
 void shrinkImage(){
  cout << "please enter the value you want to shrink with from the list[1/2,1/3,1/4]\n";
@@ -367,7 +378,10 @@ void shrinkImage(){
                 }
             }
     }
-}}
+}
+    imageName+= " shrink with "+shrink_value;
+
+}
 void mirrorHalf(){
     char half='n';
     while (half!='l'&&half!='r'&&half!='u'&&half!='d'){
@@ -487,6 +501,8 @@ void shuffleImage(){
             image[i][j] = tempMatrix[i][j];
         }
     }
+    imageName+= " shuffle by order "+order;
+
 }
 void blurImage(){
   int value;
@@ -509,6 +525,8 @@ void blurImage(){
                 image[i+3][j+2]=value;
 
             }}
+    imageName+= "blur";
+
 }
 void saveImage(){
     char imageNameNew[100];
@@ -516,4 +534,6 @@ void saveImage(){
     cin >> imageNameNew;
     strcat(imageNameNew, ".bmp");
     writeGSBMP(imageNameNew, image);
+    imageName = imageNameNew;
+
 }
