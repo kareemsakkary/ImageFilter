@@ -144,7 +144,7 @@ void blackWhite(){
 void invertImage(){
     for (int i=0; i<256;i++){
         for (int j=0;j<256;j++){
-            image[i][j] = 255 - image[i][j];
+            image[i][j] = 255 - image[i][j]; // invert each pixel by subtracting 255 from each pixel value
         }
     }
     imageName+=" invert";
@@ -228,7 +228,8 @@ void darkenLightenImage(){
 }
 // for rotateImage
 void rotate() {
-    unsigned char tempMat[256][256];
+    // function to rotate by 90 degree only
+    unsigned char tempMat[256][256]; // rotate clockwise rotation by replacing each row with opposite column from the end
     for (int i = 0; i < 256; i++) {
         for (int j = 0; j < 256; j++) {
             tempMat[j][256 - i] = image[i][j];
@@ -243,17 +244,17 @@ void rotate() {
 void rotateImage(){
     int degree, c{0};
     cout << "Which degree do you want to rotate by ? (90 - 180 - 270)" << endl;
-    cin >> degree;
+    cin >> degree; // take the degree that the user wants to rotate the image by it
     if (degree == 90) {
         rotate();
     }
-    if (degree == 180) {
+    if (degree == 180) { // 180 - rotate by 90 degree twice
         while (c < 2) {
             rotate();
             c++;
         }
     }
-    if (degree == 270) {
+    if (degree == 270) { // 270 - rotate by 90 degree 3 times
         while (c < 3) {
             rotate();
             c++;
@@ -279,6 +280,7 @@ void detectImageEdges(){
     imageName+= "`s objects edges";
 }//done
 void enlargeImage(){
+    // take the number of the quarter that the user wants to enlarge it
     cout << "Please enter the number of the quarter you want to enlarge: " << endl;
     int nQuarter, startX, startY, countX = 0, countY = 0; ;
     cin >> nQuarter;
@@ -311,7 +313,7 @@ void enlargeImage(){
         }
         countY = 0;
         countX += 2;
-    }
+    } // move the enlarged image matrix back to the original image
     for (int i = 0; i < 256; i++) {
         for (int j = 0; j < 256; j++) {
             image[i][j] = enlargedImage[i][j];
@@ -423,6 +425,7 @@ void mirrorHalf(){
 }//done
 void shuffleImage(){
     string order;
+    // take the order from the user
     cout << "Please enter the order you want to the quarters in the new image: " << endl;
     cin.ignore();
     getline(cin, order);
@@ -434,6 +437,7 @@ void shuffleImage(){
         }
         for (int i = 0; i < 256 / 2; i++) {
             for (int j = 0; j < 256 / 2; j++) {
+                // fill the quarters in the temp matrix by the given order
                 if (q == 1) {  // first quarter
                     if (k == '1') {
                         tempMatrix[i][j] = image[i][j];
@@ -493,7 +497,7 @@ void shuffleImage(){
             }
         }
         q++;
-    }
+    } // move the temp matrix back to the original image
     for (int i = 0; i < 256; i++) {
         for (int j = 0; j < 256; j++) {
             image[i][j] = tempMatrix[i][j];
