@@ -85,7 +85,6 @@ int main() {
             default:
                 break;
         }
-//        saveImage();
     }
 
 
