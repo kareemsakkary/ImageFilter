@@ -11,6 +11,8 @@
 #include "bmplib.cpp"
 
 char getOption();
+char saveOrCont();
+char exitOrCont();
 
 void loadImage();
 void blackWhite();
@@ -30,10 +32,11 @@ void saveImage();
 unsigned char image[256][256];
 unsigned char download[SIZE][SIZE];
 string imageName;
+bool run =true;
 int main() {
     char op;
     loadImage();
-    while(true){
+    while(run){
         op = getOption();
         if(op=='0'){
             break;
@@ -84,6 +87,11 @@ int main() {
             default:
                 break;
         }
+        if(op!='s' && op != 'w' && op!='0'){
+            char ac = saveOrCont();
+            if(ac=='s')
+                saveImage();
+        }
     }
     return 0;
 }
@@ -111,6 +119,37 @@ char getOption() {
     return op;
 }
 
+char saveOrCont(){
+    char op;
+    cout <<"Save(s) or continue(c) editing : ";
+    cin >> op;
+    while(op != 'c' && op!='s'){
+        char op = saveOrCont();
+    }
+    return op;
+}
+char exitOrCont(){
+    char op;
+    cout <<"Exit(e) or continue(c) editing : ";
+    cin >> op;
+    while(op != 'e' && op!='s'){
+        char op = exitOrCont();
+    }
+    return op;
+}
+
+void saveImage(){
+    char imageNameNew[100];
+    cout << "Please enter the new image name you want to save as:";
+    cin >> imageNameNew;
+    strcat(imageNameNew, ".bmp");
+    writeGSBMP(imageNameNew, image);
+    imageName = imageNameNew;
+    char op = exitOrCont();
+    if(op=='e')
+        run = false;
+
+}
 void loadImage(){
     char upload_image[200];
     cout<<"please enter the name of the image you want to upload: \n";cin>>upload_image;
@@ -120,12 +159,15 @@ void loadImage(){
 }
 void blackWhite(){
     int sum = 0;
+//    calculate the sum of pixels
     for(int i =0;i<SIZE;i++){
         for(int j =0;j<SIZE;j++){
             sum+=(int) image[i][j];
         }
     }
+//   calculate the average
     int avg = sum/(SIZE*SIZE);
+//   check every pixel if it is higher than average turn it to white else turn it black
     for(int i =0;i<SIZE;i++){
         for(int j =0;j<SIZE;j++){
             if(image[i][j]>=avg){
@@ -161,11 +203,13 @@ void mergeImage(){
 }
 void flipImage(){
     char dir='n';
+//    ask user flip horizontally or vertically
     while (dir!='h'&&dir!='v'){
         cout << "Flip horizontally(h) or vertically(v)";
         cin>>dir;
     }
     if(dir == 'h'){
+//        loop over upper half pixels and swap them with pixel with same order from the end
         unsigned char temp;
         for(int i =0;i<SIZE/2;i++){
             for(int j =0;j<SIZE;j++){
@@ -176,6 +220,8 @@ void flipImage(){
         }
         imageName+=" flip (h)";
     }else{
+
+//        loop over left half pixels and swap them with pixel with same order from the end
         unsigned char temp;
         for(int i =0;i<SIZE;i++){
             for(int j =0;j<SIZE/2;j++){
@@ -258,9 +304,12 @@ void rotateImage(){
     }
     imageName+= " rotate "+to_string(degree)+" degree";
 }
-void detectImageEdges(){
+void detectImageEdges()
+{
+//    turn image to black and white
     blackWhite();
-    unsigned char newImage[SIZE][SIZE];;
+    unsigned char newImage[SIZE][SIZE];
+//    loop over pixel and check if the adjacent pixels have the same color then turn it to white in new matrix
     for(int i =0;i<SIZE;i++){
         for(int j =0;j<SIZE;j++){
             if(image[i][j]==image[i+1][j]&&image[i][j]==image[i-1][j]&&image[i][j]==image[i][j+1]&&image[i][j-1]==image[i][j+1]){
@@ -268,6 +317,7 @@ void detectImageEdges(){
             }
         }
     }
+//    copy the values of the new matrix to the main matrix
     for(int i =0;i<SIZE;i++){
         for(int j =0;j<SIZE;j++) {
             image[i][j]=newImage[i][j];
@@ -378,14 +428,17 @@ void shrinkImage(){
     imageName+= " shrink with "+shrink_value;
 
 }
-void mirrorHalf(){
+void mirrorHalf()
+{
     char half='n';
+//    ask user which half wanted to be mirrored
     while (half!='l'&&half!='r'&&half!='u'&&half!='d'){
-        cout << "Mirror left(l), right(r), upper(u), down(d) side? ";
+        cout << "Mirror left(l), right(r), upper(u), lower(d) side? ";
         cin>>half;
     }
     switch (half) {
         case 'l':
+//            if the left half then copy the pixel to pixel in same row and same order of column from the end
             for(int i =0;i<SIZE;i++){
                 for(int j =0;j<SIZE/2;j++){
                     image[i][SIZE-j-1]=image[i][j];
@@ -394,6 +447,7 @@ void mirrorHalf(){
             imageName+=" mirror (l)";
             break;
         case 'r':
+//            if the right half then copy the pixel in same row and same order of column from the end to pixel
             for(int i =0;i<SIZE;i++){
                 for(int j =0;j<SIZE/2;j++){
                     image[i][j]=image[i][SIZE-j-1];
@@ -402,6 +456,7 @@ void mirrorHalf(){
             imageName+=" mirror (r)";
             break;
         case 'd':
+//            if the lower half then copy the pixel to pixel in same column and same order of row from the end
             for(int i =0;i<SIZE/2;i++){
                 for(int j =0;j<SIZE;j++){
                     image[255-i][j]=image[i][j];
@@ -410,12 +465,13 @@ void mirrorHalf(){
             imageName+=" mirror (d)";
             break;
         case 'u':
+//            if the upper half then copy the pixel in same column and same order of row from the end to pixel
             for(int i =0;i<SIZE/2;i++){
                 for(int j =0;j<SIZE;j++){
                     image[i][j]=image[SIZE-i-1][j];
                 }
             }
-            imageName+=" mirror (u)";
+            imageName+=" mirror (u)";   
             break;
     }
 }//done
@@ -526,12 +582,4 @@ void blurImage(){
     imageName+= " blur";
 
 }
-void saveImage(){
-    char imageNameNew[100];
-    cout << "Please enter the new image name you want to save as:";
-    cin >> imageNameNew;
-    strcat(imageNameNew, ".bmp");
-    writeGSBMP(imageNameNew, image);
-    imageName = imageNameNew;
 
-}
