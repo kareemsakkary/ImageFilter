@@ -124,7 +124,7 @@ char saveOrCont(){
     cout <<"Save(s) or continue(c) editing : ";
     cin >> op;
     while(op != 'c' && op!='s'){
-        char op = saveOrCont();
+         op = saveOrCont();
     }
     return op;
 }
@@ -132,8 +132,8 @@ char exitOrCont(){
     char op;
     cout <<"Exit(e) or continue(c) editing : ";
     cin >> op;
-    while(op != 'e' && op!='s'){
-        char op = exitOrCont();
+    while(op != 'e' && op!='c'){
+        op = exitOrCont();
     }
     return op;
 }
