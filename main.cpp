@@ -1,16 +1,15 @@
 // FCI – Programming 1 – 2022 - Assignment 3
 // Program Name: ImageFilters.cpp
-// Last Modification Date: xx/xx/xxxx
-// Kareem ElSakkary  and 20210301 and Group: xxxxx xxxxx
-// Hoda Samir and 20210443 and Group: xxxxx xxxxx
-// Nada Mohamed and 20210422 and Group: xxxxx xxxxx
+// Last Modification Date: 23/4/2022
+// Author1 and ID and Group: Kareem El Sakkary, 20210301, S1
+// Author2 and ID and Group: Nada Mohammed, 20210422, S1
+// Author3 and ID and Group: Hoda Samir, 20210443, S1
 // Teaching Assistant: Nesma
-// Purpose: create a program that take an image and add filters to it then save it
+// Purpose: create a program that take a grey scale image and add filters to it then save it
 
 #include <iostream>
 #include "bmplib.cpp"
 
-void printImage();
 char getOption();
 
 void loadImage();
@@ -86,8 +85,6 @@ int main() {
                 break;
         }
     }
-
-
     return 0;
 }
 
